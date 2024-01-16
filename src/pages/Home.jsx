@@ -15,7 +15,7 @@ const Home = () => {
         >
           <img src={cocktailsImg} className="card-img-top" alt="..." />
           <Card.Body className="card-body">
-            <h3 className="card-title">All Beers</h3>
+            <h3 className="card-title">All Cocktails</h3>
             <p className="card-text">
               Explore a collection of cocktails crafted by various mixologist.
             </p>

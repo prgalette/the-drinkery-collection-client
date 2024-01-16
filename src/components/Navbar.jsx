@@ -10,7 +10,7 @@ const NavBar = () => {
 
   return (
     <Container fluid style={{ backgroundColor: "rgb(176, 174, 189)"}}> 
-      <Navbar sticky="top" bg="primary" data-bs-theme="dark" expand="lg" style={{ padding: "10px" }}>
+      <Navbar sticky="top" bg="dark" data-bs-theme="dark" expand="lg" style={{ padding: "10px" }}>
         <Link to="/">
           {" "}
           <img
@@ -56,7 +56,7 @@ const NavBar = () => {
                 aria-label="Search"
               />
 
-              <Button style={{ marginRight: "8px" }}>
+              <Button variant="secondary" style={{ marginRight: "8px" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-search"
@@ -94,7 +94,7 @@ const NavBar = () => {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button style={{ marginRight: "8px" }}>
+              <Button variant="secondary" style={{ marginRight: "8px" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-search"
