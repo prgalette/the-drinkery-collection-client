@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './components/Navbar'
+
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from './context/auth.context'
@@ -7,6 +7,8 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from './components/Navbar'
 
 function App() {
 
@@ -23,7 +25,8 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <NavBar />
+      <br />
 
       <Routes>
 
