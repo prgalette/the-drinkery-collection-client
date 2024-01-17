@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import CocktailContext from "../context/cocktail.context";
+import { CocktailContext } from '../context/cocktail.context'
 import CocktailCard from "../components/CocktailCard";
 
 const Cocktails = () => {
@@ -11,10 +11,10 @@ const Cocktails = () => {
     if (!cocktails.length) {
       getCocktails();
     }
-  }, []);
+  }, [cocktails]);
 
   return (
-    <Container>
+    <Container className="text-center">
       <h1>Welcome to the Drinkery Collection!</h1>
       <br />
       <p>
@@ -33,11 +33,11 @@ const Cocktails = () => {
             {cocktails.map((cocktail) => {
               return (
                 <Link
-                  key={cocktail.idDrink}
-                  to={`/cocktails/${cocktail.idDrink}`}
+                  key={cocktail._id}
+                  to={`/details/${cocktail._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <CocktailCard cocktail={cocktail} />
+                  <CocktailCard  cocktail={cocktail} />
                 </Link>
               );
             })}

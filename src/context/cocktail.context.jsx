@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState  } from "react";
-import axios from "axios";
+import { get } from "../services/authService";
 
 
 
@@ -11,8 +11,7 @@ const CocktailProvider =({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const getCocktails = () => {
-        axios
-          .get("/cocktails")
+        get("/cocktails")
           .then((response) => {
             console.log("Cocktails ===>", response.data);
             setCocktails(response.data);

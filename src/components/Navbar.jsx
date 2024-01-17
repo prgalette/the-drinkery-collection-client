@@ -19,6 +19,7 @@ const NavBar = () => {
             style={{ height: "30px", width: "auto", margin: "5px" }}
           />
         </Link>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         {!getToken() && (
           <Navbar.Collapse>
@@ -26,6 +27,13 @@ const NavBar = () => {
               className="me-auto"
               
             >
+                      <Nav.Link
+        as={Link}
+        to="/cocktails"
+        style={{ fontStyle: "italic", textTransform: "uppercase" }}
+        >
+          Cocktails
+        </Nav.Link>
               <Nav.Link
                 as={Link}
                 to="/login"
@@ -84,6 +92,13 @@ const NavBar = () => {
               className="me-auto"
               
             >
+                      <Nav.Link
+        as={Link}
+        to="/cocktails"
+        style={{ fontStyle: "italic", textTransform: "uppercase" }}
+        >
+          Cocktails
+        </Nav.Link>
               <Nav.Link to="/profile">Profile</Nav.Link>
               <Button onClick={logOutUser}>Logout</Button>
             </Nav>

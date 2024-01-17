@@ -1,11 +1,19 @@
 const CocktailCard = ({ cocktail }) => {
   return (
     <div className="d-flex justify-content-center">
-      <div className="card" style={{ width: "26rem" }}>
-        <img src={cocktail.strDrinkThumb} className="card-img-top" alt="..." />
+      <div
+        className="card"
+        style={{
+          width: "26rem",
+          backgroundColor: "rgb(108, 117, 125)",
+          color: "white",
+          margin: "20px"
+        }}
+      >
+        <img src={cocktail.photo} className="card-img-top" alt="..." />
         <div className="card-body">
-          <h3 className="card-title">{cocktail.strDrink}</h3>
-          <p className="card-text">{cocktail.strInstructions}</p>
+          <h3 className="card-title">{cocktail.name}</h3>
+          {/* <p className="card-text">{cocktail.strInstructions}</p> */}
         </div>
       </div>
     </div>

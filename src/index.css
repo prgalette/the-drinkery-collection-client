@@ -26,9 +26,7 @@ a {
   text-decoration: none !important;
 }
 
-.grid {
-  background-color: rgb(176, 174, 189);
-}
+
 
 @media (min-width: 1000px) {
   .grid {
