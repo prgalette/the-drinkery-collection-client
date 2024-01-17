@@ -82,8 +82,6 @@ const CocktailDetails = () => {
             <Card.Title as="h2" className="text-center">{cocktail.name}</Card.Title>
             <Card.Text className="text-center">
               {cocktail.combos.map((el) => `${el.measure} of ${el.ingredient}`).join(', ')}
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
             </Card.Text>
           </Card.Body>
         </Card>
