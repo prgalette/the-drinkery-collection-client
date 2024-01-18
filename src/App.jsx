@@ -16,6 +16,8 @@ import AddCocktail from "./pages/AddCocktail";
 import EditCocktail from "./pages/EditCocktail";
 import EditMyCocktail from "./pages/EditMyCocktail";
 
+import "../src/scss/styles.scss"
+
 function App() {
   const { getToken } = useContext(AuthContext);
 

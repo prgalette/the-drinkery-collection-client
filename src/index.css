@@ -27,7 +27,6 @@ a {
 }
 
 
-
 @media (min-width: 1000px) {
   .grid {
     display: inline-flex;
