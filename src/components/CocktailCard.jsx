@@ -13,7 +13,6 @@ const CocktailCard = ({ cocktail }) => {
         <img src={cocktail.photo} className="card-img-top" alt="..." />
         <div className="card-body">
           <h3 className="card-title">{cocktail.name}</h3>
-          {/* <p className="card-text">{cocktail.strInstructions}</p> */}
         </div>
       </div>
     </div>

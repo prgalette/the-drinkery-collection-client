@@ -15,7 +15,7 @@ const Cocktails = () => {
 
   return (
     <Container className="text-center">
-      <h1>Welcome to the Drinkery Collection!</h1>
+      <h1 style={{ paddingTop: "80px" }}>Welcome to the Drinkery Collection!</h1>
       <br />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -34,7 +34,7 @@ const Cocktails = () => {
               return (
                 <Link
                   key={cocktail._id}
-                  to={`/details/${cocktail._id}`}
+                  to={`/cocktails/${cocktail._id}`}
                   style={{ textDecoration: "none" }}
                 >
                   <CocktailCard  cocktail={cocktail} />

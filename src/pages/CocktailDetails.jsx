@@ -1,24 +1,22 @@
 import { Container } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
-import { Card } from "react-bootstrap";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { Card, Button } from "react-bootstrap";
 import { CocktailContext } from "../context/cocktail.context";
-import { Form, FloatingLabel } from "react-bootstrap";
+import { AuthContext } from "../context/auth.context";
 import { useContext, useState, useEffect } from "react";
-import CardText from 'react-bootstrap/CardText';
-
+import CardText from "react-bootstrap/CardText";
+import { get } from "../services/authService";
 
 const CocktailDetails = () => {
   const [cocktail, setCocktail] = useState(null);
-  
 
   let { cocktailId } = useParams();
 
-  const { loading, cocktails, getCocktails } = useContext(CocktailContext);
+  const { cocktails, getCocktails } = useContext(CocktailContext);
 
-  const [show, setShow] = useState(false);
+  const { user } = useContext(AuthContext);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   // The `cocktailId` coming from the URL parameter is available in the URL path.
   // You can access it with the `useParams` hook from react-router-dom.
@@ -31,19 +29,19 @@ const CocktailDetails = () => {
       let thisCocktail = cocktails.find(
         (cocktail) => cocktail._id == cocktailId
       );
-      let combos = []
+      let combos = [];
       thisCocktail.ingredients.forEach((el) => {
-        combos.push({ingredient: "", measure: ""})
-      })
+        combos.push({ ingredient: "", measure: "" });
+      });
       thisCocktail.ingredients.forEach((ingredient, i) => {
-        console.log("ingredient", ingredient)
-        
-        combos[i].ingredient = ingredient
-      })
+        console.log("ingredient", ingredient);
+
+        combos[i].ingredient = ingredient;
+      });
       thisCocktail.measures.forEach((measure, i) => {
-        combos[i].measure = measure
-      })
-      thisCocktail.combos = combos
+        combos[i].measure = measure;
+      });
+      thisCocktail.combos = combos;
       setCocktail(thisCocktail);
 
       console.log("This cocktail ===>", thisCocktail);
@@ -51,9 +49,12 @@ const CocktailDetails = () => {
   }, [cocktails, cocktailId]);
 
   return (
-    <Container className="d-flex justify-content-center">
+    <Container className="d-flex justify-content-center" style={{ paddingTop: "80px" }}>
       {cocktail && (
-        <Card className="bg-secondary text-white" style={{ width: "50%", margin: "20px 40px" }}>
+        <Card
+          className="bg-secondary text-white"
+          style={{ width: "50%", margin: "20px 40px" }}
+        >
           <Card.Img
             variant="top"
             src={cocktail.photo}
@@ -73,21 +74,54 @@ const CocktailDetails = () => {
                 right: "380px",
                 textAlign: "center",
               }}
-            >
-              
-            </p>
+            ></p>
           </>
 
-          <Card.Body >
-            <Card.Title as="h2" className="text-center">{cocktail.name}</Card.Title>
+          <Card.Body>
+            <Card.Title as="h2" className="text-center">
+              {cocktail.name}
+            </Card.Title>
             <Card.Text className="text-center">
-              {cocktail.combos.map((el) => `${el.measure} of ${el.ingredient}`).join(', ')}
+              {cocktail.combos
+                .map((el) => `${el.measure} of ${el.ingredient}`)
+                .join(", ")}
             </Card.Text>
           </Card.Body>
+
+          {
+            user && cocktail.userOwner != user._id ? (
+              <Link
+                to={`/cocktails/edit/${cocktailId}`}
+                className="text-center"
+              >
+                <Button
+                  type="submt"
+                  variant="dark"
+                  style={{
+                    margin: "10px",
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Make New Edition
+                </Button>
+              </Link>
+            ) : (
+              <></>
+            )
+            // <Button
+            // type="submt"
+            // variant="dark"
+            // onClick={() => navigate(`/my-cocktail/edit/${cocktail._id}`)}
+            // style={{
+            //   margin: "10px",
+            //   textTransform: "uppercase",
+            //   fontWeight: "bold",
+            // }}>Edit</Button>
+          }
         </Card>
       )}
     </Container>
-    
   );
 };
 

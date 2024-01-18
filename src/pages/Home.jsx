@@ -7,11 +7,12 @@ import { Container, Card } from "react-bootstrap";
 const Home = () => {
   // The home page showing the links to the 3 main pages of the app. You can leave this as it is.
   return (
-    <Container fluid className="grid" style={{ paddingTop: "50px"}}>
+    <Container fluid className="grid" style={{ paddingTop: "80px"}}>
       <Link to="/cocktails">
         <Card
           className="d-flex justify-content-center"
-          style={{ width: "26rem", height: "26rem", margin: "10px" }}
+          style={{ width: "26rem", height: "26rem", margin: "10px", backgroundColor: "rgb(108, 117, 125)",
+          color: "white" }}
         >
           <img src={cocktailsImg} className="card-img-top" alt="..." />
           <Card.Body className="card-body">
@@ -24,10 +25,11 @@ const Home = () => {
       </Link>
       
 
-      <Link to="/random-cocktail">
+      <Link to="#">
         <Card
           className="d-flex justify-content-center"
-          style={{ width: "26rem", height: "26rem", margin: "10px" }}
+          style={{ width: "26rem", height: "26rem", margin: "10px", backgroundColor: "rgb(108, 117, 125)",
+          color: "white"  }}
         >
           <img src={randomCocktailsImg} className="card-img-top" alt="..." />
           <Card.Body className="card-body">
@@ -44,7 +46,8 @@ const Home = () => {
       <Link to="/new-cocktail">
         <Card
           className="d-flex justify-content-center"
-          style={{ width: "26rem", height: "26rem", margin: "10px" }}
+          style={{ width: "26rem", height: "26rem", margin: "10px", backgroundColor: "rgb(108, 117, 125)",
+          color: "white"  }}
         >
           <img src={newCocktailImg} className="card-img-top" alt="..." />
           <Card.Body className="card-body">

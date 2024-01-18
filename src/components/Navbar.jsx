@@ -9,31 +9,33 @@ const NavBar = () => {
   const { logOutUser, getToken } = useContext(AuthContext);
 
   return (
-    <Container fluid style={{ backgroundColor: "rgb(176, 174, 189)"}}> 
-      <Navbar sticky="top" bg="dark" data-bs-theme="dark" expand="lg" style={{ padding: "10px" }}>
-        <Link to="/">
-          {" "}
+    <Container fluid style={{ backgroundColor: "rgb(176, 174, 189)" }}>
+      <Navbar
+        fixed="top"
+        bg="dark"
+        data-bs-theme="dark"
+        expand="lg"
+        style={{ padding: "10px" }}
+      >
+        <Navbar.Brand href="#" className="logo-container" as={Link} to="/">
           <img
             src={homeIcon}
             alt="home icon"
             style={{ height: "30px", width: "auto", margin: "5px" }}
           />
-        </Link>
+        </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="navbarScroll" />
         {!getToken() && (
-          <Navbar.Collapse>
-            <Nav
-              className="me-auto"
-              
-            >
-                      <Nav.Link
-        as={Link}
-        to="/cocktails"
-        style={{ fontStyle: "italic", textTransform: "uppercase" }}
-        >
-          Cocktails
-        </Nav.Link>
+          <Navbar.Collapse id="navbarScroll">
+            <Nav className="me-auto" navbarScroll>
+              <Nav.Link
+                as={Link}
+                to="/cocktails"
+                style={{ fontStyle: "italic", textTransform: "uppercase" }}
+              >
+                Cocktails
+              </Nav.Link>
               <Nav.Link
                 as={Link}
                 to="/login"
@@ -88,19 +90,46 @@ const NavBar = () => {
 
         {getToken() && (
           <Navbar.Collapse>
-            <Nav
-              className="me-auto"
-              
-            >
-                      <Nav.Link
-        as={Link}
-        to="/cocktails"
-        style={{ fontStyle: "italic", textTransform: "uppercase" }}
-        >
-          Cocktails
-        </Nav.Link>
-              <Nav.Link to="/profile">Profile</Nav.Link>
-              <Button onClick={logOutUser}>Logout</Button>
+            <Nav className="me-auto">
+              <Nav.Link
+                as={Link}
+                to="/cocktails"
+                style={{ fontStyle: "italic", textTransform: "uppercase" }}
+              >
+                Cocktails
+              </Nav.Link>
+
+              <Nav.Link
+                as={Link}
+                to="/new-cocktail"
+                style={{ fontStyle: "italic", textTransform: "uppercase" }}
+              >
+                Add Cocktail
+              </Nav.Link>
+
+              <Nav.Link
+                as={Link}
+                to="/profile/:id"
+                style={{ fontStyle: "italic", textTransform: "uppercase" }}
+              >
+                Profile
+              </Nav.Link>
+
+              <Nav.Link
+                as={Link}
+                to="/about"
+                style={{ fontStyle: "italic", textTransform: "uppercase" }}
+              >
+                About
+              </Nav.Link>
+
+              <Button
+                variant="secondary"
+                style={{ marginLeft: "10px" }}
+                onClick={logOutUser}
+              >
+                Logout
+              </Button>
             </Nav>
             <Form className="d-flex">
               <Form.Control

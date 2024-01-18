@@ -11,6 +11,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/Navbar";
 import Cocktails from "./pages/Cocktails";
 import CocktailDetails from "./pages/CocktailDetails";
+import About from "./pages/About";
+import AddCocktail from "./pages/AddCocktail";
+import EditCocktail from "./pages/EditCocktail";
+import EditMyCocktail from "./pages/EditMyCocktail";
 
 function App() {
   const { getToken } = useContext(AuthContext);
@@ -32,7 +36,8 @@ function App() {
    <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cocktails" element={<Cocktails />} />
-        <Route path="/details/:cocktailId" element={<CocktailDetails />} />
+        <Route path="/cocktails/:cocktailId" element={<CocktailDetails />} />
+        <Route path="/about" element={<About />} />
 
         <Route element={<IsLoggedOut />}>
           <Route path="/login" element={<Login />} />
@@ -40,7 +45,10 @@ function App() {
         </Route>
 
         <Route element={<IsLoggedIn />}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/new-cocktail" element={<AddCocktail />} />
+          <Route path="/cocktails/edit/:cocktailId" element={<EditCocktail />} />
+          <Route path="/my-cocktail/edit/:cocktailId" element={<EditMyCocktail />} />
         </Route>
       </Routes>
 </div>
