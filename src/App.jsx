@@ -15,7 +15,7 @@ import About from "./pages/About";
 import AddCocktail from "./pages/AddCocktail";
 import EditCocktail from "./pages/EditCocktail";
 import EditMyCocktail from "./pages/EditMyCocktail";
-import "../src/bootstrap-custom.scss";
+
 import AddReview from "./pages/AddReview";
 import Reviews from "./pages/Reviews";
 
