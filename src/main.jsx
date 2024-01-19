@@ -7,6 +7,7 @@ import * as bootstrap from "bootstrap";
 
 import { AuthProvider } from "./context/auth.context.jsx";
 import { CocktailProvider } from "./context/cocktail.context.jsx";
+import { ReviewProvider } from "./context/review.context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
