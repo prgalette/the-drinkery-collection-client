@@ -122,7 +122,7 @@ const CocktailDetails = () => {
               <PencilSquare  type="submit" size={15} style={{ color: "black", margin: "5px" }} />
             </Link>
           ) : (
-            <><p>Something...</p></>
+            <><p></p></>
           )}
         </Card>
       )}
