@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import ReviewContext from "../context/review.context";
+import { ReviewContext } from "../context/review.context";
 import ReviewCard from "../components/ReviewCard";
 
 const Reviews = () => {
