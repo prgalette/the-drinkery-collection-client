@@ -4,6 +4,7 @@ import { Form, InputGroup, Container, Card, Button } from "react-bootstrap";
 import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { Trash3Fill } from "react-bootstrap-icons";
+import { PencilSquare } from "react-bootstrap-icons";
 
 const EditMyReview = () => {
   const [title, setTitle] = useState("");
@@ -96,24 +97,12 @@ const EditMyReview = () => {
             />
           </InputGroup>
 
-          {user && (
-            <Button
-              type="submt"
-              variant="dark"
-              style={{
-                marginTop: "10px",
-                textTransform: "uppercase",
-                fontWeight: "bold",
-              }}
-            >
-              Edit
-            </Button>
-          )}
+          {user && <PencilSquare type="submit" size={15} />}
         </Form>
         <Trash3Fill
           size={35}
           style={{ marginTop: "10px" }}
-          onClick={removeCocktail}
+          onClick={removeReview}
         />
       </Card>
     </Container>
