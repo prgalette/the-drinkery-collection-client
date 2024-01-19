@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const NavBar = () => {
-  const { logOutUser, getToken } = useContext(AuthContext);
+  const { logOutUser, getToken, user } = useContext(AuthContext);
 
   return (
     <Container fluid style={{ backgroundColor: "rgb(176, 174, 189)" }}>
@@ -107,13 +107,18 @@ const NavBar = () => {
                 Add Cocktail
               </Nav.Link>
 
-              <Nav.Link
-                as={Link}
-                to="/profile/:id"
-                style={{ fontStyle: "italic", textTransform: "uppercase" }}
-              >
-                Profile
-              </Nav.Link>
+
+              {
+                user &&
+                <Nav.Link
+                  as={Link}
+                  to={`/profile/${user._id}`}
+                  style={{ fontStyle: "italic", textTransform: "uppercase" }}
+                >
+                  Profile
+                </Nav.Link>
+              }
+
 
               <Nav.Link
                 as={Link}

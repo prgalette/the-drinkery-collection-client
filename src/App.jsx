@@ -18,6 +18,7 @@ import EditMyCocktail from "./pages/EditMyCocktail";
 
 import AddReview from "./pages/AddReview";
 import Reviews from "./pages/Reviews";
+import EditMyReview from "./pages/EditMyReview";
 
 
 function App() {
@@ -53,9 +54,10 @@ function App() {
           <Route path="/new-cocktail" element={<AddCocktail />} />
           <Route path="/cocktails/edit/:cocktailId" element={<EditCocktail />} />
           <Route path="/my-cocktail/edit/:cocktailId" element={<EditMyCocktail />} />
-          <Route path="/new-review" element={<AddReview />} />
+          <Route path="/new-review/:cocktailId" element={<AddReview />} />
           <Route path="/reviews" element={<Reviews />} />
-        </Route>
+          <Route path="/my-review/edit/:reviewId" element={<EditMyReview />}
+/>        </Route>
       </Routes>
 </div>
      

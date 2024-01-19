@@ -1,15 +1,16 @@
 import { Card } from "react-bootstrap";
 
-const ReviewCard = () => {
+const ReviewCard = ({ review }) => {
   return (
-    <Card bg="secondary" style={{ width: "18rem" }} className="mb-2">
-      <Card.Header>Header</Card.Header>
+    <Card
+      bg="secondary"
+      style={{ width: "18rem" }}
+      className="mb-2 mx-auto"
+    >
+      <Card.Header>{review.userCocktail.name}</Card.Header>
       <Card.Body>
-        <Card.Title>Review</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
+        <Card.Title>{review.title}</Card.Title>
+        <Card.Text>{review.review}</Card.Text>
       </Card.Body>
     </Card>
   );

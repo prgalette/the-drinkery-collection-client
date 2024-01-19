@@ -19,9 +19,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUser = () => {
-      const storedToken = localStorage.getItem("authToken");
-
-      if (storedToken && user) {
+      if (user) {
         get(`/users/${user._id}`)
           .then((response) => {
             console.log("User", response.data);
@@ -36,7 +34,7 @@ const Profile = () => {
                 const errorDescription = error.response.data.message;
                 setErrorMessage(errorDescription);
               });
-            get(`/reviews/user-reviews/${response.data._id}`)
+            get("/reviews/user-reviews")
               .then((response) => {
                 console.log("reviews", response.data);
                 setMyReviews(response.data);
@@ -106,6 +104,7 @@ const Profile = () => {
           </Card.Body>
         </Card>
       </Container>
+
 
       <Container className="text-center">
         <div className="cocktails-page">

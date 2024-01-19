@@ -1,10 +1,16 @@
 import { Container, Card, Form, InputGroup, Button } from "react-bootstrap";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/auth.context";
+import { useNavigate, useParams } from "react-router-dom";
+import { post } from "../services/authService";
 
 const AddReview = () => {
   const [title, setTitle] = useState("");
   const [review, setReview] = useState("");
+
+  const { cocktailId } = useParams();
+
+  const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -13,10 +19,10 @@ const AddReview = () => {
     e.preventDefault();
 
     const requestBody = { title, review };
-    post("/profile/:id", requestBody)
+    post(`/reviews/${cocktailId}`, requestBody)
       .then((response) => {
         // Once the review is created navigate to User Profile Page
-        navigate("/profile/:id");
+        navigate(`/profile/${user._id}`);
       })
       .catch((error) => console.log(error));
   };
@@ -26,7 +32,14 @@ const AddReview = () => {
       className="d-flex justify-content-center"
       style={{ paddingTop: "80px" }}
     >
-      <Card>
+      <Card
+        style={{
+          width: "30rem",
+          backgroundColor: "rgb(108, 117, 125)",
+          color: "white",
+          padding: "20px",
+        }}
+      >
         <Form className="text-center" onSubmit={handleSubmit}>
           <h3 className="text-center">Write a Review</h3>
           <InputGroup className="mb-3">
@@ -37,8 +50,8 @@ const AddReview = () => {
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
               type="text"
-              name={title}
-              value=""
+              name="title"
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </InputGroup>
@@ -50,8 +63,8 @@ const AddReview = () => {
             <Form.Control
               as="textarea"
               aria-label="With textarea"
-              name={review}
-              value=""
+              name="review"
+              value={review}
               onChange={(e) => setReview(e.target.value)}
             />
           </InputGroup>

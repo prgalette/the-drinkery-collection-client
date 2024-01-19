@@ -8,11 +8,7 @@ import ReviewCard from "../components/ReviewCard";
 const Reviews = () => {
   const { loading, reviews, getReviews } = useContext(ReviewContext);
 
-  useEffect(() => {
-    if (!reviews.length) {
-      getReviews();
-    }
-  }, [reviews]);
+  const { cocktailId } = useParams()
 
   return (
     <Container className="text-center">

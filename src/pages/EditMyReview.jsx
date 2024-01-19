@@ -5,7 +5,6 @@ import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { Trash3Fill } from "react-bootstrap-icons";
 
-
 const EditMyReview = () => {
   const [title, setTitle] = useState("");
   const [review, setReview] = useState("");
@@ -17,7 +16,7 @@ const EditMyReview = () => {
   // This effect will run after the initial render and each time
   // the `reviewId` from the URL parameter changes
   useEffect(() => {
-    get(`reviews/${reviewId}`)
+    get(`/reviews/${reviewId}`)
       .then((response) => {
         /* 
                     We update the state with the review data coming from the response.
@@ -42,7 +41,7 @@ const EditMyReview = () => {
     put(`/reviews/${reviewId}`, newReview)
       .then((response) => {
         console.log("New Cocktail", response.data);
-        navigate(`/profile/${review._id}`);
+        navigate(`/profile/${user._id}`);
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +66,14 @@ const EditMyReview = () => {
       className="d-flex justify-content-center"
       style={{ paddingTop: "80px" }}
     >
-      <Card>
+      <Card
+        style={{
+          width: "30rem",
+          backgroundColor: "rgb(108, 117, 125)",
+          color: "white",
+          padding: "20px",
+        }}
+      >
         <Form className="text-center" onSubmit={handleSubmit}>
           <h3 className="text-center">Write a Review</h3>
           <InputGroup className="mb-3">
@@ -78,8 +84,8 @@ const EditMyReview = () => {
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
               type="text"
-              name={title}
-              value=""
+              name="title"
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </InputGroup>
@@ -91,8 +97,8 @@ const EditMyReview = () => {
             <Form.Control
               as="textarea"
               aria-label="With textarea"
-              name={review}
-              value=""
+              name="review"
+              value={review}
               onChange={(e) => setReview(e.target.value)}
             />
           </InputGroup>
@@ -114,7 +120,7 @@ const EditMyReview = () => {
         <Trash3Fill
           size={35}
           style={{ marginTop: "10px" }}
-          onClick={removeCocktail}
+          onClick={removeReview}
         />
       </Card>
     </Container>

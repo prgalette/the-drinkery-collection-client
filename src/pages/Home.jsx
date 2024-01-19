@@ -7,44 +7,44 @@ import { Container, Card, Carousel, Row, Col } from "react-bootstrap";
 const Home = () => {
   // The home page showing the links to the 3 main pages of the app. You can leave this as it is.
   return (
-    <Container fluid className="grid" style={{ paddingTop: "80px" }}>
-      {/* <Carousel className="carousel-caption ml-100 mr-100">
+    <Container fluid className="grid" style={{ paddingTop: "750px" }}>
+      <Carousel className="carousel-caption ml-100 mr-100">
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://res.cloudinary.com/dxl0hu3v9/image/upload/v1703166330/01_wucvds.jpg"
+            src="https://res.cloudinary.com/dxl0hu3v9/image/upload/v1705650876/the_drinkery_collection_slider_01_uaobej.png"
             alt="First slide"
           />
           <Carousel.Caption>
-            <h5>First slide label</h5>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h5></h5>
+            <p>Welcome to the Drinkery Collection</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="holder.js/800x400?text=Second slide&bg=eee"
+            src="https://res.cloudinary.com/dxl0hu3v9/image/upload/v1705655185/the_drinkery_collection_slider_09_tvz4al.png"
             alt="Second slide"
           />
           <Carousel.Caption>
-            <h5>Second slide label</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h5></h5>
+            <p>Participate in our growing database and keep up with the latest drink trends</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="holder.js/800x400?text=Third slide&bg=e5e5e5"
+            src="https://res.cloudinary.com/dxl0hu3v9/image/upload/v1705655182/the_drinkery_collection_slider_08_o3gjxs.png"
             alt="Third slide"
           />
           <Carousel.Caption>
-            <h5>Third slide label</h5>
+            <h5></h5>
             <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              Become your very own bartender
             </p>
           </Carousel.Caption>
         </Carousel.Item>
-      </Carousel> */}
+      </Carousel>
 
       <Link to="/cocktails">
         <Card

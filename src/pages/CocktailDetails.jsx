@@ -14,7 +14,7 @@ const CocktailDetails = () => {
   const [review, setReview] = useState(null)
 
   let { cocktailId } = useParams();
-  let { reviewId } = useParams();
+  // let { reviewId } = useParams();
 
   const { cocktails, getCocktails } = useContext(CocktailContext);
   const { reviews, getReviews } = useContext(ReviewContext);
@@ -53,17 +53,6 @@ const CocktailDetails = () => {
     }
   }, [cocktails, cocktailId]);
 
-  useEffect(() => {
-    if (!reviews.length) {
-      getReviews();
-    } else {
-      console.log("Review Id ===>", reviewId);
-      console.log("Reviews ===>", reviews);
-      let thisReview = review.find(
-        (review) => review._id == reviewId
-      );
-    }
-  }, [reviews, reviewId])
 
   return (
     <Container
@@ -108,10 +97,10 @@ const CocktailDetails = () => {
             </Card.Text>
           </Card.Body>
 
-          {user && cocktail.userOwner.cocktailId != user._id ? (
+          {user && cocktail.userOwner && cocktail.userOwner._id != user._id ? (
             <Link to={`/cocktails/edit/${cocktailId}`} className="text-center">
               <Button
-                type="submt"
+                type="submit"
                 variant="dark"
                 style={{
                   margin: "10px",
@@ -126,12 +115,14 @@ const CocktailDetails = () => {
             <></>
           )}
 
-          {user && review.userOwner.reviewId != user._id ? (
-            <Link to={"/new-review"} className="text-center">
-              <PencilSquare type="submit" size={15} />
+          {(user && cocktail && !cocktail.userOwner) || (user && cocktail && cocktail.userOwner && cocktail.userOwner._id != user._id) ? (
+           
+            <Link to={`/new-review/${cocktail._id}`} className="text-center">
+               <small style={{ color: "black" }}><i>Write a review</i></small>
+              <PencilSquare  type="submit" size={15} style={{ color: "black", margin: "5px" }} />
             </Link>
           ) : (
-            <></>
+            <><p>Something...</p></>
           )}
         </Card>
       )}
