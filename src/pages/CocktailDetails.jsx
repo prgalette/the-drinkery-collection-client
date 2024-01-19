@@ -108,7 +108,7 @@ const CocktailDetails = () => {
             </Card.Text>
           </Card.Body>
 
-          {user && cocktail.userOwner != user._id ? (
+          {user && cocktail.userOwner._id != user._id ? (
             <Link to={`/cocktails/edit/${cocktailId}`} className="text-center">
               <Button
                 type="submt"
@@ -126,7 +126,7 @@ const CocktailDetails = () => {
             <></>
           )}
 
-          {user && review.userOwner != user._id ? (
+          {user && review.userOwner._id != user._id ? (
             <Link to={"/new-review"} className="text-center">
               <PencilSquare type="submit" size={15} />
             </Link>
