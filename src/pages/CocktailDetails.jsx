@@ -6,13 +6,17 @@ import { AuthContext } from "../context/auth.context";
 import { useContext, useState, useEffect } from "react";
 import CardText from "react-bootstrap/CardText";
 import { get } from "../services/authService";
+import { PencilSquare } from "react-bootstrap-icons";
 
 const CocktailDetails = () => {
   const [cocktail, setCocktail] = useState(null);
+  const [review, setReview] = useState(null)
 
   let { cocktailId } = useParams();
+  let { reviewId } = useParams();
 
   const { cocktails, getCocktails } = useContext(CocktailContext);
+  const { reviews, getReviews } = useContext(ReviewContext);
 
   const { user } = useContext(AuthContext);
 
@@ -25,7 +29,7 @@ const CocktailDetails = () => {
       getCocktails();
     } else {
       console.log("Cocktail Id ===>", cocktailId);
-      console.log("Cocktails at 22 ===>", cocktails);
+      console.log("Cocktails ===>", cocktails);
       let thisCocktail = cocktails.find(
         (cocktail) => cocktail._id == cocktailId
       );
@@ -48,8 +52,23 @@ const CocktailDetails = () => {
     }
   }, [cocktails, cocktailId]);
 
+  useEffect(() => {
+    if (!reviews.length) {
+      getReviews();
+    } else {
+      console.log("Review Id ===>", reviewId);
+      console.log("Reviews ===>", reviews);
+      let thisReview = review.find(
+        (review) => review._id == reviewId
+      );
+    }
+  }, [reviews, reviewId])
+
   return (
-    <Container className="d-flex justify-content-center" style={{ paddingTop: "80px" }}>
+    <Container
+      className="d-flex justify-content-center"
+      style={{ paddingTop: "80px" }}
+    >
       {cocktail && (
         <Card
           className="bg-secondary text-white"
@@ -88,37 +107,31 @@ const CocktailDetails = () => {
             </Card.Text>
           </Card.Body>
 
-          {
-            user && cocktail.userOwner != user._id ? (
-              <Link
-                to={`/cocktails/edit/${cocktailId}`}
-                className="text-center"
+          {user && cocktail.userOwner != user._id ? (
+            <Link to={`/cocktails/edit/${cocktailId}`} className="text-center">
+              <Button
+                type="submt"
+                variant="dark"
+                style={{
+                  margin: "10px",
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                }}
               >
-                <Button
-                  type="submt"
-                  variant="dark"
-                  style={{
-                    margin: "10px",
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Make New Edition
-                </Button>
-              </Link>
-            ) : (
-              <></>
-            )
-            // <Button
-            // type="submt"
-            // variant="dark"
-            // onClick={() => navigate(`/my-cocktail/edit/${cocktail._id}`)}
-            // style={{
-            //   margin: "10px",
-            //   textTransform: "uppercase",
-            //   fontWeight: "bold",
-            // }}>Edit</Button>
-          }
+                Make New Edition
+              </Button>
+            </Link>
+          ) : (
+            <></>
+          )}
+
+          {user && review.userOwner != user._id ? (
+            <Link to={"/new-review"} className="text-center">
+              <PencilSquare type="submit" size={15} />
+            </Link>
+          ) : (
+            <></>
+          )}
         </Card>
       )}
     </Container>
