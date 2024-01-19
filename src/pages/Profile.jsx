@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 import { AuthContext } from "../context/auth.context";
-import { SERVER_URL } from "../services/SERVER_URL";
+
 import { Card, Container, Image, Button } from "react-bootstrap";
 import { get } from "../services/authService";
 import CocktailCard from "../components/CocktailCard";
-import { PencilSquare, Trash3 } from "react-bootstrap-icons";
+
+import ReviewCard from "../components/ReviewCard";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -14,6 +15,7 @@ const Profile = () => {
   const { user } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [myCocktails, setMyCocktails] = useState([]);
+  const [myReviews, setMyReviews] = useState([]);
 
   useEffect(() => {
     const getUser = () => {
@@ -29,6 +31,15 @@ const Profile = () => {
               .then((response) => {
                 console.log("Cocktails", response.data);
                 setMyCocktails(response.data);
+              })
+              .catch((error) => {
+                const errorDescription = error.response.data.message;
+                setErrorMessage(errorDescription);
+              });
+            get(`/reviews/user-reviews/${response.data._id}`)
+              .then((response) => {
+                console.log("reviews", response.data);
+                setMyReviews(response.data);
               })
               .catch((error) => {
                 const errorDescription = error.response.data.message;
@@ -116,6 +127,30 @@ const Profile = () => {
             </>
           ) : (
             <p>No Cocktails added...</p>
+          )}
+        </div>
+      </Container>
+
+      <Container className="text-center">
+        <div className="user-reviews">
+          {loading && <p>Loading...</p>}
+
+          {myReviews.length ? (
+            <>
+              {myReviews.map((review) => {
+                return (
+                  <Link
+                    key={review._id}
+                    to={`/my-review/edit/${review._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <ReviewCard review={review} />
+                  </Link>
+                );
+              })}
+            </>
+          ) : (
+            <p>No Reviews added...</p>
           )}
         </div>
       </Container>

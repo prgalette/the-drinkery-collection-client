@@ -15,8 +15,10 @@ import About from "./pages/About";
 import AddCocktail from "./pages/AddCocktail";
 import EditCocktail from "./pages/EditCocktail";
 import EditMyCocktail from "./pages/EditMyCocktail";
+import "../src/bootstrap-custom.scss";
+import AddReview from "./pages/AddReview";
+import Reviews from "./pages/Reviews";
 
-import "../src/scss/styles.scss"
 
 function App() {
   const { getToken } = useContext(AuthContext);
@@ -51,6 +53,8 @@ function App() {
           <Route path="/new-cocktail" element={<AddCocktail />} />
           <Route path="/cocktails/edit/:cocktailId" element={<EditCocktail />} />
           <Route path="/my-cocktail/edit/:cocktailId" element={<EditMyCocktail />} />
+          <Route path="/new-review" element={<AddReview />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Route>
       </Routes>
 </div>

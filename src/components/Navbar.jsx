@@ -125,7 +125,11 @@ const NavBar = () => {
 
               <Button
                 variant="secondary"
-                style={{ marginLeft: "10px" }}
+                style={{
+                  marginLeft: "10px",
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                }}
                 onClick={logOutUser}
               >
                 Logout

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { post } from "../services/authService";
 
 const AddCocktail = () => {
-  const [name, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [photo, setPhoto] = useState("");
 
@@ -63,7 +63,7 @@ const AddCocktail = () => {
               type="text"
               name="name"
               value={name}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
           </InputGroup>
 
