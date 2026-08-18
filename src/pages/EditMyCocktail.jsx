@@ -4,6 +4,7 @@ import { Form, InputGroup, Container, Card, Button } from "react-bootstrap";
 import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
 import { Trash3Fill } from "react-bootstrap-icons";
+import { CocktailContext } from "../context/cocktail.context";
 
 const EditMyCocktail = () => {
   const [name, setName] = useState("");
@@ -16,6 +17,7 @@ const EditMyCocktail = () => {
   const { cocktailId } = useParams(); // <== ADD
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { updateCocktail, removeCocktail } = useContext(CocktailContext);
 
   // This effect will run after the initial render and each time
   // the `cocktailId` from the URL parameter changes
@@ -54,9 +56,10 @@ const EditMyCocktail = () => {
 
     put(`/cocktails/${cocktailId}`, newDrink)
       .then((response) => {
-        console.log("New Cocktail", response.data);
+        console.log("Updated Cocktail", response.data);
+        updateCocktail(response.data);
         navigate(`/profile/${user._id}`);
-      })
+  })
       .catch((err) => {
         console.log(err);
       });
@@ -64,16 +67,17 @@ const EditMyCocktail = () => {
     console.log("submitting");
   };
 
-  const removeCocktail = () => {
-    axiosDelete(`/cocktails/${cocktailId}`)
-      .then((response) => {
-        console.log(response.data);
-        navigate(`/profile/${user._id}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+const handleRemoveCocktail = () => {
+  axiosDelete(`/cocktails/${cocktailId}`)
+    .then((response) => {
+      console.log(response.data);
+      removeCocktail(cocktailId);
+      navigate(`/profile/${user._id}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
   return (
     <Container
@@ -176,7 +180,7 @@ const EditMyCocktail = () => {
         <Trash3Fill
           size={35}
           style={{ marginTop: "10px" }}
-          onClick={removeCocktail}
+          onClick={handleRemoveCocktail}
         />
       </Card>
     </Container>

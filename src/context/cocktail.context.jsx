@@ -23,6 +23,25 @@ const CocktailProvider =({ children }) => {
           });
       }
 
+    const updateCocktail = (updatedCocktail) => {
+
+      setCocktails((currentCocktails) =>
+        currentCocktails.map((cocktail) =>
+          cocktail._id === updatedCocktail._id
+            ? updatedCocktail
+            : cocktail
+    )
+  );
+};
+
+    const removeCocktail = (cocktailId) => {
+      setCocktails((currentCocktails) =>
+        currentCocktails.filter(
+          (cocktail) => cocktail._id !== cocktailId
+    )
+  );
+};
+
       useEffect(() => {
     
         getCocktails()
@@ -30,7 +49,15 @@ const CocktailProvider =({ children }) => {
     }, [])
 
     return (
-        <CocktailContext.Provider value={{ cocktails, loading, getCocktails, }}>
+        <CocktailContext.Provider
+          value={{
+            cocktails,
+            loading,
+            getCocktails,
+            updateCocktail,
+            removeCocktail,
+  }}
+>
             {children}
         </CocktailContext.Provider>
       );

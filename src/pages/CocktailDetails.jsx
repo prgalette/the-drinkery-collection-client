@@ -108,12 +108,33 @@ const CocktailDetails = () => {
                   fontWeight: "bold",
                 }}
               >
-                Make New Edition
+                Make It My Own
               </Button>
             </Link>
           ) : (
             <></>
           )}
+
+          {user && cocktail.userOwner && cocktail.userOwner._id == user._id ? (
+  <Link
+    to={`/my-cocktail/edit/${cocktailId}`}
+    className="text-center"
+  >
+    <Button
+      type="submit"
+      variant="dark"
+      style={{
+        margin: "10px",
+        textTransform: "uppercase",
+        fontWeight: "bold",
+      }}
+    >
+      Edit Cocktail
+    </Button>
+  </Link>
+) : (
+  <></>
+)}
 
           {(user && cocktail && !cocktail.userOwner) || (user && cocktail && cocktail.userOwner && cocktail.userOwner._id != user._id) ? (
            
