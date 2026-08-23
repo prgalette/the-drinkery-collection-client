@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { Form, InputGroup, Container, Card, Button } from "react-bootstrap";
 import { get, put, axiosDelete } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
+import { ReviewContext } from "../context/review.context";
 import { Trash3Fill } from "react-bootstrap-icons";
 
 const EditMyReview = () => {
@@ -12,6 +13,7 @@ const EditMyReview = () => {
   const { reviewId } = useParams(); // <== ADD
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { updateReview, removeReview } = useContext(ReviewContext);
 
   // This effect will run after the initial render and each time
   // the `reviewId` from the URL parameter changes
@@ -40,8 +42,9 @@ const EditMyReview = () => {
 
     put(`/reviews/${reviewId}`, newReview)
       .then((response) => {
-        console.log("New Cocktail", response.data);
-        navigate(`/profile/${user._id}`);
+        console.log("Updated Review", response.data);
+        updateReview(response.data);
+        navigate("/reviews");
       })
       .catch((err) => {
         console.log(err);
@@ -50,16 +53,23 @@ const EditMyReview = () => {
     console.log("submitting");
   };
 
-  const removeReview = () => {
-    axiosDelete(`/reviews/${reviewId}`)
-      .then((response) => {
-        console.log(response.data);
-        navigate(`/profile/${user._id}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const handleDelete = () => {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this review?"
+  );
+
+  if (!confirmed) return;
+
+  axiosDelete(`/reviews/${reviewId}`)
+    .then((response) => {
+      console.log(response.data);
+      removeReview(reviewId);
+      navigate("/reviews");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
   return (
     <Container
@@ -75,7 +85,7 @@ const EditMyReview = () => {
         }}
       >
         <Form className="text-center" onSubmit={handleSubmit}>
-          <h3 className="text-center">Write a Review</h3>
+          <h3 className="text-center">Edit Review</h3>
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">
               Title
@@ -105,7 +115,7 @@ const EditMyReview = () => {
 
           {user && (
             <Button
-              type="submt"
+              type="submit"
               variant="dark"
               style={{
                 marginTop: "10px",
@@ -113,14 +123,14 @@ const EditMyReview = () => {
                 fontWeight: "bold",
               }}
             >
-              Edit
+              Save Changes
             </Button>
           )}
         </Form>
         <Trash3Fill
           size={35}
           style={{ marginTop: "10px" }}
-          onClick={removeReview}
+          onClick={handleDelete}
         />
       </Card>
     </Container>

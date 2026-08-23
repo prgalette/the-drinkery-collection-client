@@ -105,7 +105,6 @@ const Profile = () => {
         </Card>
       </Container>
 
-
       <Container className="text-center">
         <div className="cocktails-page">
           {loading && <p>Loading...</p>}
@@ -114,13 +113,15 @@ const Profile = () => {
             <>
               {myCocktails.map((cocktail) => {
                 return (
-                  <Link
-                    key={cocktail._id}
-                    to={`/my-cocktail/edit/${cocktail._id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <CocktailCard cocktail={cocktail} />
-                  </Link>
+                  <div key={cocktail._id}>
+                    <Link
+                      to={`/cocktails/${cocktail._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <CocktailCard cocktail={cocktail} />
+                    </Link>
+
+                  </div>
                 );
               })}
             </>
@@ -130,28 +131,21 @@ const Profile = () => {
         </div>
       </Container>
 
-      <Container className="text-center">
-        <div className="user-reviews">
-          {loading && <p>Loading...</p>}
+      <Container className="text-center" style={{ marginTop: "20px" }}>
+        <h3>My Reviews</h3>
 
-          {myReviews.length ? (
-            <>
-              {myReviews.map((review) => {
-                return (
-                  <Link
-                    key={review._id}
-                    to={`/my-review/edit/${review._id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <ReviewCard review={review} />
-                  </Link>
-                );
-              })}
-            </>
-          ) : (
-            <p>No Reviews added...</p>
-          )}
-        </div>
+        <Link to="/reviews" style={{ textDecoration: "none" }}>
+          <Button
+            variant="dark"
+            style={{
+              margin: "10px",
+              textTransform: "uppercase",
+              fontWeight: "bold",
+            }}
+          >
+            View My Reviews
+          </Button>
+        </Link>
       </Container>
     </>
   );

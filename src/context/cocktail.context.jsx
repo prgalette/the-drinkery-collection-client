@@ -14,7 +14,9 @@ const CocktailProvider =({ children }) => {
         get("/cocktails")
           .then((response) => {
             console.log("Cocktails ===>", response.data);
-            setCocktails(response.data);
+            setCocktails(
+  [...response.data].sort((a, b) => a.name.localeCompare(b.name)),
+);
             setLoading(false);
           })
           .catch((err) => {

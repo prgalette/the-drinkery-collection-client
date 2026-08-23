@@ -11,7 +11,7 @@ import { PencilSquare } from "react-bootstrap-icons";
 
 const CocktailDetails = () => {
   const [cocktail, setCocktail] = useState(null);
-  const [review, setReview] = useState(null)
+  const [review, setReview] = useState(null);
 
   let { cocktailId } = useParams();
   // let { reviewId } = useParams();
@@ -26,33 +26,33 @@ const CocktailDetails = () => {
   // The `cocktailId` coming from the URL parameter is available in the URL path.
   // You can access it with the `useParams` hook from react-router-dom.
   useEffect(() => {
-    if (!cocktails.length) {
-      getCocktails();
-    } else {
-      console.log("Cocktail Id ===>", cocktailId);
-      console.log("Cocktails ===>", cocktails);
-      let thisCocktail = cocktails.find(
-        (cocktail) => cocktail._id == cocktailId
-      );
-      let combos = [];
-      thisCocktail.ingredients.forEach((el) => {
-        combos.push({ ingredient: "", measure: "" });
-      });
-      thisCocktail.ingredients.forEach((ingredient, i) => {
-        console.log("ingredient", ingredient);
+    const loadCocktail = async () => {
+      try {
+        let thisCocktail = cocktails.find(
+          (cocktail) => cocktail._id === cocktailId,
+        );
 
-        combos[i].ingredient = ingredient;
-      });
-      thisCocktail.measures.forEach((measure, i) => {
-        combos[i].measure = measure;
-      });
-      thisCocktail.combos = combos;
-      setCocktail(thisCocktail);
+        if (!thisCocktail) {
+          const response = await get(`/cocktails/${cocktailId}`);
+          thisCocktail = response.data;
+        }
 
-      console.log("This cocktail ===>", thisCocktail);
-    }
+        const combos = thisCocktail.ingredients.map((ingredient, i) => ({
+          ingredient,
+          measure: thisCocktail.measures[i],
+        }));
+
+        setCocktail({
+          ...thisCocktail,
+          combos,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadCocktail();
   }, [cocktails, cocktailId]);
-
 
   return (
     <Container
@@ -97,53 +97,66 @@ const CocktailDetails = () => {
             </Card.Text>
           </Card.Body>
 
-          {user && cocktail.userOwner && cocktail.userOwner._id != user._id ? (
-            <Link to={`/cocktails/edit/${cocktailId}`} className="text-center">
-              <Button
-                type="submit"
-                variant="dark"
-                style={{
-                  margin: "10px",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                }}
+          {user &&
+            cocktail &&
+            (!cocktail.userOwner || cocktail.userOwner._id !== user._id) && (
+              <Link
+                to={`/cocktails/edit/${cocktailId}`}
+                className="text-center"
               >
-                Make It My Own
-              </Button>
-            </Link>
-          ) : (
-            <></>
-          )}
+                <Button
+                  variant="dark"
+                  style={{
+                    margin: "10px",
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Make It Your Own
+                </Button>
+              </Link>
+            )}
 
-          {user && cocktail.userOwner && cocktail.userOwner._id == user._id ? (
-  <Link
-    to={`/my-cocktail/edit/${cocktailId}`}
-    className="text-center"
-  >
-    <Button
-      type="submit"
-      variant="dark"
-      style={{
-        margin: "10px",
-        textTransform: "uppercase",
-        fontWeight: "bold",
-      }}
-    >
-      Edit Cocktail
-    </Button>
-  </Link>
-) : (
-  <></>
-)}
+          {user &&
+            cocktail &&
+            cocktail.userOwner &&
+            cocktail.userOwner._id === user._id && (
+              <Link
+                to={`/my-cocktail/edit/${cocktailId}`}
+                className="text-center"
+              >
+                <Button
+                  variant="dark"
+                  style={{
+                    margin: "10px",
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Edit Cocktail
+                </Button>
+              </Link>
+            )}
 
-          {(user && cocktail && !cocktail.userOwner) || (user && cocktail && cocktail.userOwner && cocktail.userOwner._id != user._id) ? (
-           
+          {(user && cocktail && !cocktail.userOwner) ||
+          (user &&
+            cocktail &&
+            cocktail.userOwner &&
+            cocktail.userOwner._id != user._id) ? (
             <Link to={`/new-review/${cocktail._id}`} className="text-center">
-               <small style={{ color: "black" }}><i>Write a review</i></small>
-              <PencilSquare  type="submit" size={15} style={{ color: "black", margin: "5px" }} />
+              <small style={{ color: "black" }}>
+                <i>Write a review</i>
+              </small>
+              <PencilSquare
+                type="submit"
+                size={15}
+                style={{ color: "black", margin: "5px" }}
+              />
             </Link>
           ) : (
-            <><p></p></>
+            <>
+              <p></p>
+            </>
           )}
         </Card>
       )}

@@ -1,3 +1,4 @@
+import { ReviewContext } from "../context/review.context";
 import { Container, Card, Form, InputGroup, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
@@ -11,6 +12,7 @@ const AddReview = () => {
   const { cocktailId } = useParams();
 
   const { user } = useContext(AuthContext);
+  const { getReviews } = useContext(ReviewContext);
 
   const navigate = useNavigate();
 
@@ -20,9 +22,9 @@ const AddReview = () => {
 
     const requestBody = { title, review };
     post(`/reviews/${cocktailId}`, requestBody)
-      .then((response) => {
-        // Once the review is created navigate to User Profile Page
-        navigate(`/profile/${user._id}`);
+      .then(() => {
+        getReviews();
+        navigate("/reviews");
       })
       .catch((error) => console.log(error));
   };

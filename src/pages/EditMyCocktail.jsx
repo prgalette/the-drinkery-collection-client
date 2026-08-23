@@ -11,7 +11,6 @@ const EditMyCocktail = () => {
   const [instructions, setInstructions] = useState("");
 
   const [ingredients, setIngredients] = useState("");
-  // const [measurement, setMeasurement] = useState('')
   const [measurements, setMeasurements] = useState("");
   const [photo, setPhoto] = useState("");
   const { cocktailId } = useParams(); // <== ADD
@@ -59,7 +58,7 @@ const EditMyCocktail = () => {
         console.log("Updated Cocktail", response.data);
         updateCocktail(response.data);
         navigate(`/profile/${user._id}`);
-  })
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -67,17 +66,23 @@ const EditMyCocktail = () => {
     console.log("submitting");
   };
 
-const handleRemoveCocktail = () => {
-  axiosDelete(`/cocktails/${cocktailId}`)
-    .then((response) => {
-      console.log(response.data);
-      removeCocktail(cocktailId);
-      navigate(`/profile/${user._id}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+  const handleRemoveCocktail = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this cocktail?",
+    );
+
+    if (!confirmed) return;
+
+    axiosDelete(`/cocktails/${cocktailId}`)
+      .then((response) => {
+        console.log(response.data);
+        removeCocktail(cocktailId);
+        navigate(`/profile/${user._id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container
@@ -93,7 +98,7 @@ const handleRemoveCocktail = () => {
         }}
       >
         <Form className="text-center" onSubmit={handleSubmit}>
-          <h3 className="text-center">Make It My Own!</h3>
+          <h3 className="text-center">Edit Cocktail</h3>
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">
               Name
@@ -165,7 +170,7 @@ const handleRemoveCocktail = () => {
 
           {user && (
             <Button
-              type="submt"
+              type="submit"
               variant="dark"
               style={{
                 marginTop: "10px",
@@ -173,7 +178,7 @@ const handleRemoveCocktail = () => {
                 fontWeight: "bold",
               }}
             >
-              Edit
+              Save Changes
             </Button>
           )}
         </Form>

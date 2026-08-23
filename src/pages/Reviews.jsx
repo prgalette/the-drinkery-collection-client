@@ -1,14 +1,11 @@
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ReviewContext } from "../context/review.context";
 import ReviewCard from "../components/ReviewCard";
 
-
 const Reviews = () => {
   const { loading, reviews, getReviews } = useContext(ReviewContext);
-
-  const { cocktailId } = useParams()
 
   return (
     <Container className="text-center">
@@ -16,24 +13,37 @@ const Reviews = () => {
 
       <div className="reviews-page">
         {loading && <p>Loading...</p>}
+{loading ? (
+  <p>Loading...</p>
+) : reviews.length ? (
+  <>
+    {reviews.map((review) => {
+      return (
+        <div key={review._id}>
+          <ReviewCard review={review} />
 
-        {reviews.length ? (
-          <>
-            {reviews.map((review) => {
-              return (
-                <Link
-                  key={review._id}
-                  to={`/reviews/${review._id}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <ReviewCard cocktail={review} />
-                </Link>
-              );
-            })}
-          </>
-        ) : (
-          <p>Loading...</p>
-        )}
+          <Link
+            to={`/my-review/edit/${review._id}`}
+            style={{ textDecoration: "none" }}
+          >
+            <Button
+              variant="dark"
+              style={{
+                marginBottom: "20px",
+                textTransform: "uppercase",
+                fontWeight: "bold",
+              }}
+            >
+              Edit Review
+            </Button>
+          </Link>
+        </div>
+      );
+    })}
+  </>
+) : (
+  <p>No reviews yet.</p>
+)}
       </div>
     </Container>
   );
