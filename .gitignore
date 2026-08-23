@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# backups
+src/services/SERVER_URL.deployed.js
