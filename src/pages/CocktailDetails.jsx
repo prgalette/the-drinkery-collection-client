@@ -91,9 +91,17 @@ const CocktailDetails = () => {
               {cocktail.name}
             </Card.Title>
             <Card.Text className="text-center">
-              {cocktail.combos
-                .map((el) => `${el.measure} of ${el.ingredient}`)
-                .join(", ")}
+              {cocktail.measures.length > 0 ? (
+                cocktail.combos
+                  .map((el) => `${el.measure} ${el.ingredient}`)
+                  .join(", ")
+              ) : (
+                <>
+                  <strong>Instructions: </strong>
+                  <br />
+                  {cocktail.instructions}
+                </>
+              )}
             </Card.Text>
           </Card.Body>
 
