@@ -10,7 +10,7 @@ const ReviewProvider = ({ children }) => {
   const getReviews = () => {
     get("/reviews/user-reviews")
       .then((response) => {
-        console.log("Reviews ===>", response.data);
+        // Security: avoid logging complete API responses because they may contain user data.
         setReviews(response.data);
         setLoading(false);
       })
@@ -44,7 +44,14 @@ const ReviewProvider = ({ children }) => {
 
   return (
     <ReviewContext.Provider
-      value={{ reviews, loading, getReviews, updateReview, removeReview, addReview }}
+      value={{
+        reviews,
+        loading,
+        getReviews,
+        updateReview,
+        removeReview,
+        addReview,
+      }}
     >
       {children}
     </ReviewContext.Provider>

@@ -24,7 +24,7 @@ const EditMyCocktail = () => {
     // <== ADD
     get(`/cocktails/${cocktailId}`)
       .then((response) => {
-        /* 
+        /*
           We update the state with the cocktail data coming from the response.
           This way we set inputs to show the actual name and description of the cocktail
         */
@@ -55,8 +55,6 @@ const EditMyCocktail = () => {
 
     put(`/cocktails/${cocktailId}`, newDrink)
       .then((response) => {
-        console.log("Updated Cocktail", response.data);
-        updateCocktail(response.data);
         navigate(`/profile/${user._id}`);
       })
       .catch((err) => {
@@ -75,7 +73,6 @@ const EditMyCocktail = () => {
 
     axiosDelete(`/cocktails/${cocktailId}`)
       .then((response) => {
-        console.log(response.data);
         removeCocktail(cocktailId);
         navigate(`/profile/${user._id}`);
       })

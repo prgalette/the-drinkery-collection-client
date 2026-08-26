@@ -41,8 +41,8 @@ function AuthProvider({ children }) {
         .then((response) => {
           // If the server verifies that the JWT token is valid
           const user = response.data;
-
-          console.log("Authenticate User/Decoded Token ===>", user);
+          // Security: never log the complete authenticated user object.
+          // The response may contain sensitive credential data.
           // Update state variables
           setIsLoading(false);
           setUser(user);
@@ -68,13 +68,13 @@ function AuthProvider({ children }) {
     removeToken();
     // and update the state variables
     authenticateUser();
-    navigate('/')
+    navigate("/");
   };
 
   useEffect(() => {
     authenticateUser(); //  <==  ADD
   }, []);
-  /* 
+  /*
     Functions for handling the authentication status (isLoggedIn, isLoading, user)
     will be added here later in the next step
   */

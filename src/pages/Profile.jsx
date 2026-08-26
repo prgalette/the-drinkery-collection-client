@@ -22,12 +22,11 @@ const Profile = () => {
       if (user) {
         get(`/users/${user._id}`)
           .then((response) => {
-            console.log("User", response.data);
+            // Security: never log the complete user response.
             setUserProfile(response.data);
             setLoading(false);
             get(`/cocktails/user-cocktails/${response.data._id}`)
               .then((response) => {
-                console.log("Cocktails", response.data);
                 setMyCocktails(response.data);
               })
               .catch((error) => {
@@ -36,7 +35,6 @@ const Profile = () => {
               });
             get("/reviews/user-reviews")
               .then((response) => {
-                console.log("reviews", response.data);
                 setMyReviews(response.data);
               })
               .catch((error) => {
@@ -120,7 +118,6 @@ const Profile = () => {
                     >
                       <CocktailCard cocktail={cocktail} />
                     </Link>
-
                   </div>
                 );
               })}

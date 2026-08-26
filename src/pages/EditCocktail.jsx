@@ -29,7 +29,7 @@ const EditCocktail = () => {
     // <== ADD
     get(`/cocktails/${cocktailId}`)
       .then((response) => {
-        /* 
+        /*
         We update the state with the cocktail data coming from the response.
         This way we set inputs to show the actual name and description of the cocktail
       */
@@ -60,7 +60,6 @@ const EditCocktail = () => {
 
     post("/cocktails", newDrink)
       .then((response) => {
-        console.log("New Cocktail", response.data);
         navigate(`/profile/${user._id}`);
       })
       .catch((err) => {
@@ -179,7 +178,7 @@ const EditCocktail = () => {
                   justifyContent: "normal"
                 }}>
                   <p style={{ marginLeft: "10px"}}>{ingredient}</p>{" "}
-                  
+
                   <p
                     onClick={() =>
                       setIngredients((prev) =>
@@ -233,7 +232,7 @@ const EditCocktail = () => {
                   justifyContent: "normal"
                 }}>
                   <p style={{ marginLeft: "10px"}}>{measurement}</p>{" "}
-                  
+
                   <p
                     onClick={() =>
                       setIngredients((prev) =>

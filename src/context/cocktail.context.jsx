@@ -13,7 +13,7 @@ const CocktailProvider =({ children }) => {
     const getCocktails = () => {
         get("/cocktails")
           .then((response) => {
-            console.log("Cocktails ===>", response.data);
+            // Security: avoid logging complete API responses because they may contain user data.
             setCocktails(
   [...response.data].sort((a, b) => a.name.localeCompare(b.name)),
 );

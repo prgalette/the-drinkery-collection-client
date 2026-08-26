@@ -20,7 +20,7 @@ const EditMyReview = () => {
   useEffect(() => {
     get(`/reviews/${reviewId}`)
       .then((response) => {
-        /* 
+        /*
                     We update the state with the review data coming from the response.
                     This way we set inputs to show the actual title and cocktail review
                 */
@@ -42,7 +42,6 @@ const EditMyReview = () => {
 
     put(`/reviews/${reviewId}`, newReview)
       .then((response) => {
-        console.log("Updated Review", response.data);
         updateReview(response.data);
         navigate("/reviews");
       })
@@ -54,22 +53,21 @@ const EditMyReview = () => {
   };
 
   const handleDelete = () => {
-  const confirmed = window.confirm(
-    "Are you sure you want to delete this review?"
-  );
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this review?",
+    );
 
-  if (!confirmed) return;
+    if (!confirmed) return;
 
-  axiosDelete(`/reviews/${reviewId}`)
-    .then((response) => {
-      console.log(response.data);
-      removeReview(reviewId);
-      navigate("/reviews");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+    axiosDelete(`/reviews/${reviewId}`)
+      .then((response) => {
+        removeReview(reviewId);
+        navigate("/reviews");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container
